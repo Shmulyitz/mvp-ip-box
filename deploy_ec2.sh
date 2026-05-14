@@ -14,7 +14,7 @@ USAGE
 KEY_PATH=""
 EC2_HOST=""
 SSH_USER="ubuntu"
-REPO_DIR="~/mvp-ip-box"
+REPO_DIR="/home/ubuntu/mvp-ip-box"
 BRANCH="main"
 
 while getopts ":k:h:u:r:b:" opt; do
@@ -42,6 +42,8 @@ echo "Deploying branch '$BRANCH' to $SSH_USER@$EC2_HOST ..."
 
 ssh -o StrictHostKeyChecking=accept-new -i "$KEY_PATH" "$SSH_USER@$EC2_HOST" "BRANCH='$BRANCH' REPO_DIR='$REPO_DIR' bash -s" <<'REMOTE'
 set -euo pipefail
+
+REPO_DIR="${REPO_DIR/#\~/$HOME}"
 
 cd "$REPO_DIR"
 git fetch origin "$BRANCH"

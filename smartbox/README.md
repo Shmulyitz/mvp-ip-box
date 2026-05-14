@@ -13,6 +13,14 @@ sudo systemctl enable smartbox-video
 sudo reboot
 ```
 
+If `install.sh` fails with permission or line-ending errors:
+
+```bash
+chmod +x install.sh
+sed -i 's/\r$//' install.sh
+sudo bash ./install.sh
+```
+
 ## Services
 
 - API: `http://device-ip:8080`

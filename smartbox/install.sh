@@ -24,7 +24,7 @@ rsync -a --delete --exclude '.git' --exclude '__pycache__' "$SRC_DIR/" "$TARGET_
 
 python3 -m venv "$VENV_DIR"
 "$VENV_DIR/bin/pip" install --upgrade pip wheel setuptools
-"$VENV_DIR/bin/pip" install -r "$TARGET_DIR/requirements.txt"
+"$VENV_DIR/bin/pip" install --prefer-binary -r "$TARGET_DIR/requirements.txt"
 
 mkdir -p "$TARGET_DIR/data"
 "$VENV_DIR/bin/python" "$TARGET_DIR/scripts/init_db.py"

@@ -46,3 +46,14 @@ sudo systemctl restart smartbox-video
 - Supports layouts 1 / 4 / 9 / 16.
 - Uses GStreamer compositor to render to local HDMI.
 - No cloud, no browser playback for HDMI, no Docker requirement.
+
+## One-command EC2 deploy
+
+From your local machine (repo root), run:
+
+```bash
+chmod +x deploy_ec2.sh
+./deploy_ec2.sh -k /path/to/key.pem -h <EC2_PUBLIC_IP>
+```
+
+This script SSHes to EC2, pulls latest `main`, runs `smartbox/install.sh`, and ensures both services are enabled and running.

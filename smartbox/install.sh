@@ -27,7 +27,8 @@ python3 -m venv "$VENV_DIR"
 "$VENV_DIR/bin/pip" install --prefer-binary -r "$TARGET_DIR/requirements.txt"
 
 mkdir -p "$TARGET_DIR/data"
-"$VENV_DIR/bin/python" "$TARGET_DIR/scripts/init_db.py"
+cd "$TARGET_DIR"
+"$VENV_DIR/bin/python" -m scripts.init_db
 
 install -m 0644 "$TARGET_DIR/systemd/smartbox-api.service" /etc/systemd/system/smartbox-api.service
 install -m 0644 "$TARGET_DIR/systemd/smartbox-video.service" /etc/systemd/system/smartbox-video.service

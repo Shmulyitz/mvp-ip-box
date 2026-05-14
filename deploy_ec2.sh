@@ -48,6 +48,8 @@ REPO_DIR="${REPO_DIR/#\~/$HOME}"
 cd "$REPO_DIR"
 git fetch origin "$BRANCH"
 git checkout "$BRANCH"
+git reset --hard "origin/$BRANCH"
+git clean -fd
 git pull --ff-only origin "$BRANCH"
 
 cd smartbox

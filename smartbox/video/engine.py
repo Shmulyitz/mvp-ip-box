@@ -11,7 +11,7 @@ from sqlalchemy import select
 from app import crud, models
 from app.db import SessionLocal
 from video.gst_utils import get_error_message, init_gst
-from video.pipeline import build_pipeline
+from video.pipeline import build_pipeline, output_sink
 from video.status import mark_reload_handled, set_video_state
 
 gi.require_version("Gst", "1.0")
@@ -57,7 +57,7 @@ class VideoEngine:
         layout, cells, camera_map = self.load_active_layout()
         if not layout:
             logger.info("No active layout found; rendering fallback placeholder")
-            launch = "videotestsrc is-live=true pattern=black ! textoverlay text=\"NO ACTIVE LAYOUT\" valignment=center halignment=center ! autovideosink sync=false"
+            launch = f"videotestsrc is-live=true pattern=black ! textoverlay text=\"NO ACTIVE LAYOUT\" valignment=center halignment=center ! {output_sink()}"
             self.current_camera_ids = []
         else:
             now = time.time()

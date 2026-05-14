@@ -47,6 +47,26 @@ sudo systemctl restart smartbox-video
 - Uses GStreamer compositor to render to local HDMI.
 - No cloud, no browser playback for HDMI, no Docker requirement.
 
+For headless servers (for example EC2 without HDMI/display), set video sink to `fakesink`:
+
+```bash
+sudo systemctl edit smartbox-video
+```
+
+Add:
+
+```ini
+[Service]
+Environment=SMARTBOX_VIDEO_SINK=fakesink
+```
+
+Then run:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart smartbox-video
+```
+
 ## One-command EC2 deploy
 
 From your local machine (repo root), run:

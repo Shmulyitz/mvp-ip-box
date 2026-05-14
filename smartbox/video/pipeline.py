@@ -1,5 +1,6 @@
 from collections.abc import Iterable
 from dataclasses import dataclass
+import os
 from urllib.parse import urlsplit, urlunsplit
 
 from app.models import Camera, Layout, LayoutCell
@@ -12,6 +13,10 @@ from video.layout import compute_grid
 class PipelinePlan:
     launch: str
     camera_ids: list[int]
+
+
+def output_sink() -> str:
+    return os.getenv("SMARTBOX_VIDEO_SINK", "autovideosink") + " sync=false"
 
 
 def _safe_rtsp_url(camera: Camera, requested: str, grid_size: int) -> str | None:
@@ -89,7 +94,7 @@ def build_pipeline(layout: Layout, cells: Iterable[LayoutCell], camera_map: dict
 
     launch = (
         f"compositor name=comp background=black {' '.join(sink_props)} ! "
-        "videoconvert ! video/x-raw,width=1920,height=1080,framerate=15/1 ! autovideosink sync=false "
+        f"videoconvert ! video/x-raw,width=1920,height=1080,framerate=15/1 ! {output_sink()} "
         + " ".join(source_parts)
     )
     return PipelinePlan(launch=launch, camera_ids=camera_ids)

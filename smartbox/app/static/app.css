@@ -1,0 +1,11 @@
+body { font-family: Arial, sans-serif; margin: 0; background: #f5f6f8; }
+header { background: #111827; color: #fff; padding: 12px 20px; }
+header h1 { margin: 0 0 8px 0; font-size: 20px; }
+nav a { color: #fff; margin-right: 12px; text-decoration: none; }
+main { padding: 16px 20px; }
+.card { background: #fff; padding: 12px; border: 1px solid #ddd; margin-bottom: 14px; }
+input, select, button { margin: 4px; padding: 6px 8px; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.cell { border: 1px solid #ddd; padding: 8px; background: #fafafa; }

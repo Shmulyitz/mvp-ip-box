@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Cameras</h2>
+<form method="post" action="/cameras" class="card">
+  <input name="name" placeholder="Name" required>
+  <input name="ip_address" placeholder="IP Address">
+  <input name="rtsp_main_url" placeholder="RTSP Main URL">
+  <input name="rtsp_sub_url" placeholder="RTSP Sub URL">
+  <input name="username" placeholder="Username">
+  <input type="password" name="password" placeholder="Password">
+  <select name="preferred_stream">
+    <option value="main">main</option>
+    <option value="sub" selected>sub</option>
+  </select>
+  <label><input type="checkbox" name="enabled" checked> enabled</label>
+  <button type="submit">Add Camera</button>
+</form>
+<table>
+  <thead><tr><th>ID</th><th>Name</th><th>Main</th><th>Sub</th><th>Preferred</th><th>Enabled</th><th>Actions</th></tr></thead>
+  <tbody>
+  {% for camera in cameras %}
+  <tr>
+    <td>{{ camera.id }}</td>
+    <td><input form="edit-{{ camera.id }}" name="name" value="{{ camera.name }}"></td>
+    <td><input form="edit-{{ camera.id }}" name="rtsp_main_url" value="{{ camera.rtsp_main_url or '' }}"></td>
+    <td><input form="edit-{{ camera.id }}" name="rtsp_sub_url" value="{{ camera.rtsp_sub_url or '' }}"></td>
+    <td>
+      <select form="edit-{{ camera.id }}" name="preferred_stream">
+        <option value="main" {% if camera.preferred_stream == "main" %}selected{% endif %}>main</option>
+        <option value="sub" {% if camera.preferred_stream == "sub" %}selected{% endif %}>sub</option>
+      </select>
+    </td>
+    <td><input form="edit-{{ camera.id }}" type="checkbox" name="enabled" {% if camera.enabled %}checked{% endif %}></td>
+    <td>
+      <form id="edit-{{ camera.id }}" method="post" action="/cameras/{{ camera.id }}/update" style="display:inline">
+        <button type="submit">Save</button>
+      </form>
+      <form method="post" action="/cameras/{{ camera.id }}/test" style="display:inline">
+        <button type="submit">Test</button>
+      </form>
+      <form method="post" action="/cameras/{{ camera.id }}/delete" style="display:inline">
+        <button type="submit">Delete</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

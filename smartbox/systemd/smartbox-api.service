@@ -1,0 +1,18 @@
+[Unit]
+Description=Smartbox FastAPI Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/smartbox
+Environment=PYTHONUNBUFFERED=1
+Environment=SMARTBOX_DB_PATH=/opt/smartbox/data/smartbox.db
+Environment=SMARTBOX_ADMIN_USERNAME=admin
+Environment=SMARTBOX_ADMIN_PASSWORD=admin
+ExecStart=/opt/smartbox/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8080
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

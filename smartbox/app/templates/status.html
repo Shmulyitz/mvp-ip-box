@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Stream Status</h2>
+<form method="post" action="/video/reload"><button type="submit">Reload Video</button></form>
+<table>
+  <thead><tr><th>Camera</th><th>Status</th><th>Last Error</th><th>Reconnect Count</th><th>Updated</th></tr></thead>
+  <tbody>
+  {% for row in statuses %}
+  <tr>
+    <td>{{ cameras[row.camera_id].name if row.camera_id in cameras else row.camera_id }}</td>
+    <td>{{ row.status }}</td>
+    <td>{{ row.last_error or "" }}</td>
+    <td>{{ row.reconnect_count }}</td>
+    <td>{{ row.updated_at }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Settings</h2>
+<form method="post" action="/settings" class="card">
+  <input name="device_name" placeholder="Device name" value="{% for s in settings %}{% if s.key == 'device_name' %}{{ s.value }}{% endif %}{% endfor %}">
+  <button type="submit">Save</button>
+</form>
+<form method="post" action="/video/reload"><button type="submit">Restart Video Service (Reload)</button></form>
+<ul>
+{% for s in settings %}
+  <li>{{ s.key }} = {{ s.value }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,16 @@
+[Unit]
+Description=Smartbox Video Engine Service
+After=network-online.target smartbox-api.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/smartbox
+Environment=PYTHONUNBUFFERED=1
+Environment=SMARTBOX_DB_PATH=/opt/smartbox/data/smartbox.db
+ExecStart=/opt/smartbox/venv/bin/python -m video.engine
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

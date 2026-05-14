@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<p><strong>Video service:</strong> {{ video_status }}</p>
+<p><strong>Active layout:</strong> {{ active_layout.name if active_layout else "None" }}</p>
+<p><strong>Active cameras:</strong> {{ camera_count }}</p>
+<table>
+  <thead><tr><th>Camera ID</th><th>Status</th><th>Last Error</th><th>Reconnects</th></tr></thead>
+  <tbody>
+  {% for row in stream_status %}
+    <tr>
+      <td>{{ row.camera_id }}</td>
+      <td>{{ row.status }}</td>
+      <td>{{ row.last_error or "" }}</td>
+      <td>{{ row.reconnect_count }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

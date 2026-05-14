@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Layouts</h2>
+<form method="post" action="/layouts" class="card">
+  <input name="name" placeholder="Layout name" required>
+  <select name="grid_size">
+    <option value="1">1</option>
+    <option value="4">4</option>
+    <option value="9">9</option>
+    <option value="16">16</option>
+  </select>
+  <button type="submit">Create Layout</button>
+</form>
+{% for layout in layouts %}
+<section class="card">
+  <h3>{{ layout.name }} ({{ layout.grid_size }}) {% if layout.is_active %}[active]{% endif %}</h3>
+  <form method="post" action="/layouts/{{ layout.id }}/activate"><button type="submit">Activate</button></form>
+  <div class="grid">
+    {% for cell in layout.cells %}
+      <form method="post" action="/layouts/{{ layout.id }}/cells/{{ cell.cell_index }}" class="cell">
+        <label>Cell {{ cell.cell_index }}</label>
+        <select name="camera_id">
+          <option value="0">(empty)</option>
+          {% for cam in cameras %}
+            <option value="{{ cam.id }}" {% if cell.camera_id == cam.id %}selected{% endif %}>{{ cam.name }}</option>
+          {% endfor %}
+        </select>
+        <select name="stream_type">
+          <option value="main" {% if cell.stream_type == "main" %}selected{% endif %}>main</option>
+          <option value="sub" {% if cell.stream_type == "sub" %}selected{% endif %}>sub</option>
+        </select>
+        <button type="submit">Save</button>
+      </form>
+    {% endfor %}
+  </div>
+</section>
+{% endfor %}
+{% endblock %}

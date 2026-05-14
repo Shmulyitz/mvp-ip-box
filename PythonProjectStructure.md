@@ -1,0 +1,45 @@
+Python Project Structure
+
+smartbox/
+  README.md
+  requirements.txt
+  install.sh
+  systemd/
+    smartbox-api.service
+    smartbox-video.service
+  app/
+    __init__.py
+    main.py
+    db.py
+    models.py
+    schemas.py
+    crud.py
+    config.py
+    security.py
+    routers/
+      cameras.py
+      layouts.py
+      video.py
+      events.py
+      settings.py
+    templates/
+      base.html
+      dashboard.html
+      cameras.html
+      layouts.html
+      status.html
+      settings.html
+    static/
+      app.css
+      app.js
+  video/
+    __init__.py
+    engine.py
+    pipeline.py
+    layout.py
+    gst_utils.py
+    status.py
+  scripts/
+    init_db.py
+    seed_demo.py
+    test_rtsp.py
